@@ -8,11 +8,11 @@ provider "aws" {
 module "vpc" {
   source = "./modules/vpc"
 
-  vpc_name = var.project_name
-  cidr_block = var.vpc_cidr
+  vpc_name             = var.project_name
+  cidr_block           = var.vpc_cidr
   private_subnet_cidrs = var.private_subnet_cidrs
   public_subnet_cidrs  = var.public_subnet_cidrs
-
+  tags                 = var.tags
 }
 
 # -----------------------------
@@ -24,6 +24,7 @@ module "eks" {
   cluster_name = var.cluster_name
   vpc_id       = module.vpc.vpc_id
   subnet_ids   = module.vpc.private_subnets
+  tags         = var.tags
 }
 
 # -----------------------------
