@@ -19,3 +19,9 @@ variable "public_subnet_cidrs" {
   type        = list(string)
   default     = []
 }
+
+variable "tags" {
+  description = "Common tags"
+  type        = map(string)
+  default     = {}
+}

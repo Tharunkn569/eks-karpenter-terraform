@@ -10,6 +10,9 @@ module "vpc" {
 
   vpc_name = var.project_name
   cidr_block = var.vpc_cidr
+  private_subnet_cidrs = var.private_subnet_cidrs
+  public_subnet_cidrs  = var.public_subnet_cidrs
+
 }
 
 # -----------------------------
