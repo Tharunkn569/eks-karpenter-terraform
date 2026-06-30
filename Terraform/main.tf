@@ -34,4 +34,5 @@ module "karpenter" {
   source = "./modules/karpenter"
 
   cluster_name = module.eks.cluster_name
+  tags         = var.tags
 }
