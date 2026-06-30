@@ -28,6 +28,17 @@ output "eks_cluster_security_group_id" {
   value       = module.eks.cluster_security_group_id
 }
 
+
+output "karpenter_controller_role_arn" {
+  description = "IAM role ARN used by Karpenter controller"
+  value       = module.karpenter.karpenter_controller_role_arn
+}
+
+output "karpenter_node_role_name" {
+  description = "IAM role name used by Karpenter-created EC2 nodes"
+  value       = module.karpenter.karpenter_node_role_name
+}
+
 output "karpenter_interruption_queue_name" {
   description = "SQS queue name used by Karpenter for Spot interruption handling"
   value       = module.karpenter.interruption_queue_name
