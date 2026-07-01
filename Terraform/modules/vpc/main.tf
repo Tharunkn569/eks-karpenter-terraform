@@ -5,7 +5,8 @@ resource "aws_vpc" "this" {
 
 
   tags = merge(var.tags, {
-    Name = var.vpc_name
+    Name                     = "${var.vpc_name}-private-${count.index}"
+    "karpenter.sh/discovery" = var.vpc_name
   })
 
 }
