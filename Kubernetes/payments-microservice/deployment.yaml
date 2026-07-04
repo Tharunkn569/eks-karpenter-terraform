@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: payments-microservice
+  namespace: payments
+  labels:
+    app: payments-microservice
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: payments-microservice
+  template:
+    metadata:
+      labels:
+        app: payments-microservice
+    spec:
+      containers:
+        - name: payments-microservice
+          image: nginx:1.25
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 10
+            periodSeconds: 10
+
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 30
+            periodSeconds: 20
