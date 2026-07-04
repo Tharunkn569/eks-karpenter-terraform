@@ -1,0 +1,21 @@
+enableSpotInterruptionDraining: true
+enableScheduledEventDraining: true
+enableRebalanceMonitoring: true
+enableRebalanceDraining: false
+
+deleteLocalData: true
+ignoreDaemonSets: true
+
+nodeSelector:
+  karpenter.sh/capacity-type: spot
+
+tolerations:
+  - operator: Exists
+
+resources:
+  requests:
+    cpu: 50m
+    memory: 64Mi
+  limits:
+    cpu: 200m
+    memory: 256Mi

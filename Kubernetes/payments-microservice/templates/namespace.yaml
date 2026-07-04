@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: payments
+  name: {{ .Values.namespace | default "payments" }}
   labels:
     app.kubernetes.io/name: payments-microservice
-    app.kubernetes.io/environment: dev
+    app.kubernetes.io/environment: {{ .Values.environment | default "dev" }}

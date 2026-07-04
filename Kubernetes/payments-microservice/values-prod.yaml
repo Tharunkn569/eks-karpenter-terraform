@@ -1,13 +1,18 @@
+namespace: payments
+environment: prod
 replicaCount: 4
 
 image:
-  repository: nginx
-  tag: "1.25"
+  repository: 123456789012.dkr.ecr.us-east-1.amazonaws.com/payments-microservice
+  tag: "prod-latest"
   pullPolicy: IfNotPresent
 
 service:
   type: ClusterIP
   port: 80
+  targetPort: 8080
+
+containerPort: 8080
 
 hpa:
   enabled: true
