@@ -43,3 +43,16 @@ networkPolicy:
 
 config:
   logLevel: DEBUG
+
+resourceQuota:
+  requestsCpu: "2"
+  requestsMemory: "2Gi"
+  limitsCpu: "4"
+  limitsMemory: "4Gi"
+  pods: "20"
+  
+limitRange:
+  defaultCpu: "500m"
+  defaultMemory: "512Mi"
+  defaultRequestCpu: "100m"
+  defaultRequestMemory: "128Mi"

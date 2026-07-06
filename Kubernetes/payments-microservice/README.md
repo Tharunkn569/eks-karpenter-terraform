@@ -17,6 +17,9 @@ This application is used to validate Karpenter node provisioning, Horizontal Pod
 - Network Policy
 - Service Account
 - ConfigMap-based application configuration
+- Dedicated PriorityClass for workload prioritization
+- Namespace ResourceQuota controls
+- LimitRange for default container resource governance
 
 ## Helm Structure
 

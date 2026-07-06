@@ -16,12 +16,17 @@ spec:
       labels:
         app: payments-microservice
     spec:
+      priorityClassName: payments-high-priority
       serviceAccountName: payments-microservice
 
       containers:
         - name: payments-microservice
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+
+          envFrom:
+            - configMapRef:
+                name: payments-microservice-config
 
           ports:
             - containerPort: {{ .Values.containerPort }}

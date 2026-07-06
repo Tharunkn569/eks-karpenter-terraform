@@ -41,3 +41,16 @@ networkPolicy:
 
 config:
   logLevel: INFO
+
+resourceQuota:
+  requestsCpu: "10"
+  requestsMemory: "10Gi"
+  limitsCpu: "20"
+  limitsMemory: "20Gi"
+  pods: "100"
+
+limitRange:
+  defaultCpu: "1000m"
+  defaultMemory: "1Gi"
+  defaultRequestCpu: "250m"
+  defaultRequestMemory: "256Mi"
