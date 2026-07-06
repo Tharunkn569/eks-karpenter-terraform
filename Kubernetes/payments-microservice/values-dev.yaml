@@ -33,3 +33,13 @@ resources:
   limits:
     cpu: 500m
     memory: 512Mi
+
+ingress:
+  enabled: true
+  host: payments-dev.example.com
+
+networkPolicy:
+  enabled: true
+
+config:
+  logLevel: DEBUG

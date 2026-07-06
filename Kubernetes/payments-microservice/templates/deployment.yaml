@@ -6,6 +6,7 @@ metadata:
   labels:
     app: payments-microservice
 spec:
+  serviceAccountName: payments-microservice
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
@@ -15,6 +16,8 @@ spec:
       labels:
         app: payments-microservice
     spec:
+      serviceAccountName: payments-microservice
+
       containers:
         - name: payments-microservice
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"

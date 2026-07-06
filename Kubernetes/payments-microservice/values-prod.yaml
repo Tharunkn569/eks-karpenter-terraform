@@ -31,3 +31,13 @@ resources:
   limits:
     cpu: 1000m
     memory: 1Gi
+
+ingress:
+  enabled: true
+  host: payments.example.com
+
+networkPolicy:
+  enabled: true
+
+config:
+  logLevel: INFO

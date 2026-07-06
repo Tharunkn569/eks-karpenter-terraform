@@ -14,10 +14,12 @@ This application is used to validate Karpenter node provisioning, Horizontal Pod
 - Pod Disruption Budget (PDB)
 - Karpenter-compatible workload scheduling
 - Separate configuration for dev and prod environments
+- Network Policy
+- Service Account
+- ConfigMap-based application configuration
 
 ## Helm Structure
 
-```text
 payments-microservice/
 ├── Chart.yaml
 ├── values-dev.yaml
@@ -28,7 +30,6 @@ payments-microservice/
     ├── service.yaml
     ├── hpa.yaml
     └── pdb.yaml
-```
 
 ## Environment Configuration
 
