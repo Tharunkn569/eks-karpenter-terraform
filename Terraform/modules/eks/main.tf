@@ -47,3 +47,10 @@ resource "aws_eks_cluster" "this" {
 
   tags = var.tags
 }
+
+resource "aws_ec2_tag" "cluster_security_group_discovery" {
+  resource_id = aws_eks_cluster.this.vpc_config[0].cluster_security_group_id
+  key         = "karpenter.sh/discovery"
+  value       = var.cluster_name
+}
+

@@ -1,0 +1,19 @@
+syncSecret:
+  enabled: true
+
+enableSecretRotation: true
+rotationPollInterval: 1m
+
+linux:
+  enabled: true
+
+windows:
+  enabled: false
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi
