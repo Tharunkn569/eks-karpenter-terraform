@@ -43,3 +43,18 @@ output "karpenter_interruption_queue_name" {
   description = "SQS queue name used by Karpenter for Spot interruption handling"
   value       = module.karpenter.interruption_queue_name
 }
+
+output "ebs_csi_driver_role_arn" {
+  description = "IAM role ARN used by EBS CSI Driver"
+  value       = module.platform_addons.ebs_csi_driver_role_arn
+}
+
+output "ebs_csi_driver_addon_name" {
+  description = "EKS add-on name for EBS CSI Driver"
+  value       = module.platform_addons.ebs_csi_driver_addon_name
+}
+
+output "aws_secrets_provider_addon_name" {
+  description = "EKS add-on name for AWS Secrets Store CSI Provider"
+  value       = module.platform_addons.aws_secrets_provider_addon_name
+}
