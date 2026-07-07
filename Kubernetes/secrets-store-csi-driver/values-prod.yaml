@@ -17,3 +17,7 @@ resources:
   limits:
     cpu: 500m
     memory: 512Mi
+
+secrets:
+  enabled: true
+  secretName: prod/payments-microservice/db-credentials

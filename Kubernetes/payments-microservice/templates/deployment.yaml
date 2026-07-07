@@ -18,6 +18,15 @@ spec:
     spec:
       priorityClassName: payments-high-priority
       serviceAccountName: payments-microservice
+      
+    volumes:
+       - name: payments-secrets-store
+          csi:
+           driver: secrets-store.csi.k8s.io
+           readOnly: true
+           volumeAttributes:
+             secretProviderClass: payments-secret-provider
+
 
       containers:
         - name: payments-microservice
@@ -27,6 +36,24 @@ spec:
           envFrom:
             - configMapRef:
                 name: payments-microservice-config
+
+          env:
+            - name: DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: payments-app-secret
+                  key: DB_USERNAME
+
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: payments-app-secret
+                 key: DB_PASSWORD
+          
+          volumeMounts:
+            - name: payments-secrets-store
+              mountPath: "/mnt/secrets-store"
+              readOnly: true
 
           ports:
             - containerPort: {{ .Values.containerPort }}

@@ -20,6 +20,9 @@ This application is used to validate Karpenter node provisioning, Horizontal Pod
 - Dedicated PriorityClass for workload prioritization
 - Namespace ResourceQuota controls
 - LimitRange for default container resource governance
+- AWS Secrets Manager integration using Secrets Store CSI Driver
+- SecretProviderClass-based secret mounting
+
 
 ## Helm Structure
 
@@ -38,19 +41,17 @@ payments-microservice/
 
 ### Development
 
-```bash
 helm install payments ./payments-microservice \
 -f values-dev.yaml \
 -n payments
-```
 
 ### Production
 
-```bash
+
 helm install payments ./payments-microservice \
 -f values-prod.yaml \
 -n payments
-```
+
 
 ## Autoscaling
 
