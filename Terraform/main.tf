@@ -36,3 +36,10 @@ module "karpenter" {
   cluster_name = module.eks.cluster_name
   tags         = var.tags
 }
+
+module "platform_addons" {
+  source = "./modules/platform-addons"
+
+  cluster_name = module.eks.cluster_name
+  tags         = var.tags
+}
