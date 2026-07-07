@@ -1,0 +1,31 @@
+namespace: orders
+environment: prod
+
+replicaCount: 2
+
+image:
+  repository: 123456789012.dkr.ecr.us-east-1.amazonaws.com/orders-microservice
+  tag: "prod-latest"
+  pullPolicy: IfNotPresent
+
+containerPort: 8080
+
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 8080
+
+storage:
+  className: orders-ebs-sc
+  size: 20Gi
+  accessMode: ReadWriteOnce
+  volumeType: gp3
+  encrypted: true
+
+resources:
+  requests:
+    cpu: 250m
+    memory: 256Mi
+  limits:
+    cpu: 1000m
+    memory: 1Gi
