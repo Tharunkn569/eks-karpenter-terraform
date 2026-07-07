@@ -1,0 +1,21 @@
+apiVersion: v2
+name: orders-microservice
+description: Helm chart for deploying the orders microservice with EBS-backed persistent storage on Amazon EKS
+
+type: application
+
+version: 0.1.0
+appVersion: "1.0.0"
+
+keywords:
+  - orders
+  - microservice
+  - eks
+  - ebs
+  - kubernetes
+  - helm
+
+maintainers:
+  - name: Tharun
+
+home: https://github.com/Tharun0808/eks-karpenter-terraform
