@@ -58,3 +58,8 @@ output "aws_secrets_provider_addon_name" {
   description = "EKS add-on name for AWS Secrets Store CSI Provider"
   value       = module.platform_addons.aws_secrets_provider_addon_name
 }
+
+output "payments_workload_role_arn" {
+  description = "IAM role ARN used by payments microservice through EKS Pod Identity"
+  value       = module.payments_workload_iam.role_arn
+}

@@ -43,3 +43,13 @@ module "platform_addons" {
   cluster_name = module.eks.cluster_name
   tags         = var.tags
 }
+
+module "payments_workload_iam" {
+  source = "./modules/workload-iam"
+
+  cluster_name         = module.eks.cluster_name
+  namespace            = "payments"
+  service_account_name = "payments-microservice"
+  secret_arns          = var.payments_secret_arns
+  tags                 = var.tags
+}

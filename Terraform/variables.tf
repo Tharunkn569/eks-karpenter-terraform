@@ -50,3 +50,9 @@ variable "tags" {
     ManagedBy   = "terraform"
   }
 }
+
+variable "payments_secret_arns" {
+  description = "AWS Secrets Manager secret ARNs used by the payments microservice"
+  type        = list(string)
+  default     = []
+}

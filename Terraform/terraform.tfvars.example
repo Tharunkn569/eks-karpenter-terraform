@@ -21,3 +21,7 @@ tags = {
   Environment = "dev"
   ManagedBy   = "terraform"
 }
+
+payments_secret_arns = [
+  "arn:aws:secretsmanager:us-east-1:123456789012:secret:dev/payments-microservice/db-credentials-*"
+]
