@@ -63,3 +63,8 @@ output "payments_workload_role_arn" {
   description = "IAM role ARN used by payments microservice through EKS Pod Identity"
   value       = module.payments_workload_iam.role_arn
 }
+
+output "aws_load_balancer_controller_role_arn" {
+  description = "IAM role ARN used by AWS Load Balancer Controller"
+  value       = module.platform_addons.aws_load_balancer_controller_role_arn
+}
