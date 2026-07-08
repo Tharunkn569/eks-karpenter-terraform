@@ -2,43 +2,62 @@
 
 ## Overview
 
-This folder contains Kubernetes resources used to demonstrate application deployment, autoscaling, resilience, and dynamic node provisioning on Amazon EKS.
+This folder contains Kubernetes and Helm-based configurations used for workloads and platform components running on Amazon EKS.
 
 ## Structure
 
 ```text
 kubernetes/
+├── aws-load-balancer-controller/
+├── aws-secrets-provider/
+├── ebs-csi-driver/
 ├── karpenter/
 ├── node-termination-handler/
-└── payments-microservice/
-```
+├── orders-microservice/
+├── payments-microservice/
+└── secrets-store-csi-driver/
+
 
 ## Components
 
-### Karpenter
+## Payments Microservice
 
-Contains manifests related to dynamic node provisioning.
+Sample microservice used to demonstrate:
 
-Key capabilities:
+Helm-based deployment
+HPA and PDB
+Ingress
+NetworkPolicy
+ConfigMap
+AWS Secrets Manager integration using Secrets Store CSI Driver
 
-- Dynamic node provisioning
-- Spot and On-Demand capacity support
-- Node consolidation
-- Interruption handling integration
+## Orders Microservice
 
-### Node Termination Handler
+Sample microservice used to demonstrate:
 
-Contains environment-specific configuration used to improve workload resilience during node interruption events.
+Helm-based deployment
+StorageClass
+PersistentVolumeClaim
+EBS-backed volume mount
 
-### Payments Microservice
+## Karpenter
 
-Sample workload used to demonstrate:
+Contains NodePool and EC2NodeClass manifests for dynamic node provisioning.
 
-- Helm-based deployment
-- Application scaling using HPA
-- Workload protection using PDB
-- Karpenter-driven node provisioning
+## AWS Load Balancer Controller
+Contains environment-specific values for AWS Load Balancer Controller.
+
+## Secrets Store CSI Driver
+Contains environment-specific values for Secrets Store CSI Driver.
+
+## AWS Secrets Provider
+Contains environment-specific values for AWS Secrets and Configuration Provider.
+
+## EBS CSI Driver
+Documents EBS CSI Driver usage for persistent storage workloads.
+
+## Node Termination Handler
+Contains environment-specific values for handling Spot and node interruption events.
 
 ## Purpose
-
-These manifests demonstrate production-style Kubernetes deployment patterns and operational practices commonly used on Amazon EKS.
+This folder demonstrates production-style Kubernetes workload deployment, autoscaling, traffic routing, storage, and secret management patterns on Amazon EKS.

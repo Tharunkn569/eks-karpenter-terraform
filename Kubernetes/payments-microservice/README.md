@@ -77,6 +77,11 @@ Current configuration:
 ```yaml
 maxUnavailable: 2
 ```
+## Secrets Manager Integration
+
+The Payments Microservice uses a dedicated Kubernetes ServiceAccount.
+
+payments-microservice
 
 ## Health Checks
 

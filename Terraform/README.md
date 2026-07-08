@@ -8,7 +8,6 @@ The infrastructure is organized into reusable modules to simplify management, sc
 
 ## Structure
 
-```text
 terraform/
 ├── main.tf
 ├── variables.tf
@@ -19,8 +18,9 @@ terraform/
 └── modules/
     ├── vpc/
     ├── eks/
-    └── karpenter/
-```
+    ├── karpenter/
+    ├── platform-addons/
+    └── workload-iam/
 
 ## Modules
 
@@ -51,6 +51,22 @@ Provisions resources required for Karpenter integration, including:
 - EventBridge Rules
 - SQS Interruption Queue
 
+### Platform Add-ons
+
+Provisions IAM and add-on integrations for platform components, including:
+
+- EBS CSI Driver
+- AWS Secrets Store CSI Provider
+- AWS Load Balancer Controller Pod Identity
+
+### Workload IAM
+
+Provisions IAM roles and EKS Pod Identity associations for Kubernetes workloads.
+
+Currently used for:
+
+- Payments Microservice access to AWS Secrets Manager
+
 ## Features
 
 - Modular Terraform design
@@ -59,6 +75,12 @@ Provisions resources required for Karpenter integration, including:
 - Karpenter integration
 - EKS Pod Identity support
 - Spot interruption handling
+- Platform add-on integration
+- Workload IAM using EKS Pod Identity
+- AWS Secrets Manager access for workloads
+- EBS CSI Driver integration
+- AWS Load Balancer Controller IAM integration
+
 
 ## Purpose
 
