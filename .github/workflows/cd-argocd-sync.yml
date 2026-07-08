@@ -1,0 +1,13 @@
+name: ArgoCD Sync
+
+on:
+  workflow_dispatch:
+
+jobs:
+  argocd-sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Trigger ArgoCD Sync
+        run: |
+          echo "ArgoCD synchronization workflow placeholder"
