@@ -82,6 +82,20 @@ Used to demonstrate:
 - EBS-backed persistent storage
 - Kubernetes workload governance
 
+## CI/CD Flow
+
+Developer Code Change
+↓
+GitHub Actions
+↓
+Docker Image Build
+↓
+Amazon ECR
+↓
+ArgoCD Sync
+↓
+Amazon EKS Deployment
+
 ## Disclaimer
 
 This repository is a personal learning and demonstration project created to showcase Terraform, Amazon EKS, Kubernetes, Karpenter, and AWS platform integration patterns.

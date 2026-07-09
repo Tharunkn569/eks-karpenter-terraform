@@ -9,7 +9,6 @@ on:
 
 env:
   AWS_REGION: us-east-1
-  ECR_REPOSITORY: payments-microservice
   IMAGE_TAG: latest
 
 permissions:
@@ -17,9 +16,13 @@ permissions:
   contents: read
 
 jobs:
-  build-and-push:
-    name: Build Docker Image and Push to Amazon ECR
+  build-and-push-payments:
+    name: Build and Push Payments Image
     runs-on: ubuntu-latest
+
+    env:
+      ECR_REPOSITORY: payments-microservice
+      APP_PATH: app/payments-microservice
 
     steps:
       - name: Checkout Repository
@@ -37,7 +40,41 @@ jobs:
 
       - name: Build Docker Image
         run: |
-          docker build -t $ECR_REPOSITORY:$IMAGE_TAG .
+          docker build -t $ECR_REPOSITORY:$IMAGE_TAG $APP_PATH
+
+      - name: Tag Docker Image
+        run: |
+          docker tag $ECR_REPOSITORY:$IMAGE_TAG ${{ steps.login-ecr.outputs.registry }}/$ECR_REPOSITORY:$IMAGE_TAG
+
+      - name: Push Docker Image to Amazon ECR
+        run: |
+          docker push ${{ steps.login-ecr.outputs.registry }}/$ECR_REPOSITORY:$IMAGE_TAG
+
+  build-and-push-orders:
+    name: Build and Push Orders Image
+    runs-on: ubuntu-latest
+
+    env:
+      ECR_REPOSITORY: orders-microservice
+      APP_PATH: app/orders-microservice
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Configure AWS Credentials using OIDC
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_GITHUB_ACTIONS_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build Docker Image
+        run: |
+          docker build -t $ECR_REPOSITORY:$IMAGE_TAG $APP_PATH
 
       - name: Tag Docker Image
         run: |
