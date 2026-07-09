@@ -1,0 +1,45 @@
+
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: microservices
+  namespace: argocd
+spec:
+  generators:
+    - list:
+        elements:
+          - name: payments-microservice
+            namespace: payments
+            path: kubernetes/payments-microservice
+            valuesFile: values-dev.yaml
+
+          - name: orders-microservice
+            namespace: orders
+            path: kubernetes/orders-microservice
+            valuesFile: values-dev.yaml
+
+  template:
+    metadata:
+      name: "{{name}}"
+    spec:
+      project: default
+
+      source:
+        repoURL: https://github.com/Tharunkn569/eks-karpenter-terraform.git
+        targetRevision: main
+        path: "{{path}}"
+        helm:
+          valueFiles:
+            - "{{valuesFile}}"
+
+      destination:
+        server: https://kubernetes.default.svc
+        namespace: "{{namespace}}"
+
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+
+        syncOptions:
+          - CreateNamespace=true
