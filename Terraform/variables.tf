@@ -56,3 +56,15 @@ variable "payments_secret_arns" {
   type        = list(string)
   default     = []
 }
+
+variable "github_org" {
+  description = "GitHub organization or username"
+  type        = string
+  default     = "Tharunkn569"
+}
+
+variable "github_repo" {
+  description = "GitHub repository name"
+  type        = string
+  default     = "eks-karpenter-terraform"
+}

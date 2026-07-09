@@ -17,3 +17,13 @@ output "aws_load_balancer_controller_role_arn" {
   description = "IAM role ARN used by AWS Load Balancer Controller"
   value       = aws_iam_role.aws_load_balancer_controller.arn
 }
+
+output "payments_ecr_repository_url" {
+  description = "ECR repository URL for payments microservice"
+  value       = aws_ecr_repository.payments_microservice.repository_url
+}
+
+output "orders_ecr_repository_url" {
+  description = "ECR repository URL for orders microservice"
+  value       = aws_ecr_repository.orders_microservice.repository_url
+}

@@ -68,3 +68,18 @@ output "aws_load_balancer_controller_role_arn" {
   description = "IAM role ARN used by AWS Load Balancer Controller"
   value       = module.platform_addons.aws_load_balancer_controller_role_arn
 }
+
+output "payments_ecr_repository_url" {
+  description = "ECR repository URL for payments microservice"
+  value       = module.platform_addons.payments_ecr_repository_url
+}
+
+output "orders_ecr_repository_url" {
+  description = "ECR repository URL for orders microservice"
+  value       = module.platform_addons.orders_ecr_repository_url
+}
+
+output "github_actions_role_arn" {
+  description = "IAM role ARN used by GitHub Actions through OIDC"
+  value       = module.github_oidc.github_actions_role_arn
+}

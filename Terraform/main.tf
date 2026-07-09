@@ -53,3 +53,11 @@ module "payments_workload_iam" {
   secret_arns          = var.payments_secret_arns
   tags                 = var.tags
 }
+
+module "github_oidc" {
+  source = "./modules/github-oidc"
+
+  github_org  = var.github_org
+  github_repo = var.github_repo
+  tags        = var.tags
+}

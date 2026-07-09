@@ -25,3 +25,6 @@ tags = {
 payments_secret_arns = [
   "arn:aws:secretsmanager:us-east-1:123456789012:secret:dev/payments-microservice/db-credentials-*"
 ]
+
+github_org  = "Tharunkn569"
+github_repo = "eks-karpenter-terraform"

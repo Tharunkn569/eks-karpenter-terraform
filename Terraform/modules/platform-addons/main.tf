@@ -175,3 +175,67 @@ resource "aws_eks_pod_identity_association" "aws_load_balancer_controller" {
   service_account = "aws-load-balancer-controller"
   role_arn        = aws_iam_role.aws_load_balancer_controller.arn
 }
+
+resource "aws_ecr_repository" "payments_microservice" {
+  name                 = "payments-microservice"
+  image_tag_mutability = "MUTABLE"
+
+  image_scanning_configuration {
+    scan_on_push = true
+  }
+
+  tags = var.tags
+}
+
+resource "aws_ecr_repository" "orders_microservice" {
+  name                 = "orders-microservice"
+  image_tag_mutability = "MUTABLE"
+
+  image_scanning_configuration {
+    scan_on_push = true
+  }
+
+  tags = var.tags
+}
+
+resource "aws_ecr_lifecycle_policy" "payments_microservice" {
+  repository = aws_ecr_repository.payments_microservice.name
+
+  policy = jsonencode({
+    rules = [
+      {
+        rulePriority = 1
+        description  = "Keep last 10 images"
+        selection = {
+          tagStatus   = "any"
+          countType   = "imageCountMoreThan"
+          countNumber = 10
+        }
+        action = {
+          type = "expire"
+        }
+      }
+    ]
+  })
+}
+
+resource "aws_ecr_lifecycle_policy" "orders_microservice" {
+  repository = aws_ecr_repository.orders_microservice.name
+
+  policy = jsonencode({
+    rules = [
+      {
+        rulePriority = 1
+        description  = "Keep last 10 images"
+        selection = {
+          tagStatus   = "any"
+          countType   = "imageCountMoreThan"
+          countNumber = 10
+        }
+        action = {
+          type = "expire"
+        }
+      }
+    ]
+  })
+}
