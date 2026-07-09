@@ -1,15 +1,16 @@
-name: Build and Push Docker Image to Amazon ECR
+name: 01_CI_github_actions_AWS_ECR
 
 on:
   push:
     branches:
       - main
-    paths:
-      - "kubernetes/payments-microservice/**"
+
+  workflow_dispatch:
 
 env:
   AWS_REGION: us-east-1
   ECR_REPOSITORY: payments-microservice
+  IMAGE_TAG: latest
 
 permissions:
   id-token: write
@@ -17,16 +18,17 @@ permissions:
 
 jobs:
   build-and-push:
+    name: Build Docker Image and Push to Amazon ECR
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Source Code
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
       - name: Configure AWS Credentials using OIDC
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: ${{ secrets.AWS_GITHUB_ACTIONS_ROLE }}
+          role-to-assume: ${{ secrets.AWS_GITHUB_ACTIONS_ROLE_ARN }}
           aws-region: ${{ env.AWS_REGION }}
 
       - name: Login to Amazon ECR
@@ -35,14 +37,12 @@ jobs:
 
       - name: Build Docker Image
         run: |
-          docker build -t ${ECR_REPOSITORY}:${GITHUB_SHA} .
+          docker build -t $ECR_REPOSITORY:$IMAGE_TAG .
 
       - name: Tag Docker Image
         run: |
-          docker tag ${ECR_REPOSITORY}:${GITHUB_SHA} \
-          ${{ steps.login-ecr.outputs.registry }}/${ECR_REPOSITORY}:${GITHUB_SHA}
+          docker tag $ECR_REPOSITORY:$IMAGE_TAG ${{ steps.login-ecr.outputs.registry }}/$ECR_REPOSITORY:$IMAGE_TAG
 
-      - name: Push Docker Image
+      - name: Push Docker Image to Amazon ECR
         run: |
-          docker push \
-          ${{ steps.login-ecr.outputs.registry }}/${ECR_REPOSITORY}:${GITHUB_SHA}
+          docker push ${{ steps.login-ecr.outputs.registry }}/$ECR_REPOSITORY:$IMAGE_TAG

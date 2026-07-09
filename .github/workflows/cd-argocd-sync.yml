@@ -1,13 +1,47 @@
-name: ArgoCD Sync
+name: 02_CD_ArgoCD_Sync
 
 on:
   workflow_dispatch:
 
+env:
+  ARGOCD_SERVER: argocd.example.com
+  ARGOCD_APP_PAYMENTS: payments-microservice
+  ARGOCD_APP_ORDERS: orders-microservice
+
 jobs:
   argocd-sync:
+    name: Trigger ArgoCD Application Sync
     runs-on: ubuntu-latest
 
     steps:
-      - name: Trigger ArgoCD Sync
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Install ArgoCD CLI
         run: |
-          echo "ArgoCD synchronization workflow placeholder"
+          curl -sSL -o argocd https://github.com/argoproj/argo-cd/releases/latest/download/argocd-linux-amd64
+          chmod +x argocd
+          sudo mv argocd /usr/local/bin/
+
+      - name: Login to ArgoCD
+        run: |
+          argocd login $ARGOCD_SERVER \
+            --username ${{ secrets.ARGOCD_USERNAME }} \
+            --password ${{ secrets.ARGOCD_PASSWORD }} \
+            --insecure
+
+      - name: Sync Payments Microservice
+        run: |
+          argocd app sync $ARGOCD_APP_PAYMENTS
+
+      - name: Sync Orders Microservice
+        run: |
+          argocd app sync $ARGOCD_APP_ORDERS
+
+      - name: Wait for Payments Microservice Healthy Status
+        run: |
+          argocd app wait $ARGOCD_APP_PAYMENTS --health --timeout 300
+
+      - name: Wait for Orders Microservice Healthy Status
+        run: |
+          argocd app wait $ARGOCD_APP_ORDERS --health --timeout 300
