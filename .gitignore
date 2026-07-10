@@ -37,3 +37,43 @@ node_modules/
 
 # Misc
 .env
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+.terraform.lock.hcl
+terraform.tfvars
+*.tfvars
+
+# Kubernetes
+*.tmp
+
+# Logs
+*.log
+
+# Environment Files
+.env
+.env.*
+
+# VS Code
+.vscode/
+
+# IntelliJ
+.idea/
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Python
+__pycache__/
+*.pyc
+
+# Node
+node_modules/
+
+# Build Artifacts
+dist/
+build/
+``
