@@ -22,7 +22,7 @@ spec:
     metadata:
       name: "{{name}}"
     spec:
-      project: default
+      project: microservices
 
       source:
         repoURL: https://github.com/Tharunkn569/eks-karpenter-terraform.git

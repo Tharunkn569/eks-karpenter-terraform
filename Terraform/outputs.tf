@@ -83,3 +83,8 @@ output "github_actions_role_arn" {
   description = "IAM role ARN used by GitHub Actions through OIDC"
   value       = module.github_oidc.github_actions_role_arn
 }
+
+output "ebs_csi_driver_role_arn" {
+  description = "IAM role ARN used by EBS CSI Driver"
+  value       = module.platform_addons.ebs_csi_driver_role_arn
+}

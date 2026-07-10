@@ -1,11 +1,10 @@
-
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: payments-microservice
   namespace: argocd
 spec:
-  project: default
+  project: microservices
 
   source:
     repoURL: https://github.com/Tharunkn569/eks-karpenter-terraform.git

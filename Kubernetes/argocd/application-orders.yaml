@@ -5,7 +5,7 @@ metadata:
   name: orders-microservice
   namespace: argocd
 spec:
-  project: default
+  project: microservices
 
   source:
     repoURL: https://github.com/Tharunkn569/eks-karpenter-terraform.git

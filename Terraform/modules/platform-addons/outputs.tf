@@ -27,3 +27,8 @@ output "orders_ecr_repository_url" {
   description = "ECR repository URL for orders microservice"
   value       = aws_ecr_repository.orders_microservice.repository_url
 }
+
+output "ebs_csi_driver_role_arn" {
+  description = "IAM role ARN used by EBS CSI Driver"
+  value       = aws_iam_role.ebs_csi_driver.arn
+}

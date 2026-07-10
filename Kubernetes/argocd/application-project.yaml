@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: microservices
+  namespace: argocd
+
+spec:
+  description: GitOps project for EKS microservices
+
+  sourceRepos:
+    - "https://github.com/Tharunkn569/eks-karpenter-terraform.git"
+
+  destinations:
+    - namespace: payments
+      server: https://kubernetes.default.svc
+
+    - namespace: orders
+      server: https://kubernetes.default.svc
+
+  clusterResourceWhitelist:
+    - group: "*"
+      kind: "*"
+
+  namespaceResourceWhitelist:
+    - group: "*"
+      kind: "*"
