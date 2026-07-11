@@ -61,3 +61,10 @@ module "github_oidc" {
   github_repo = var.github_repo
   tags        = var.tags
 }
+
+module "observability" {
+  source = "./modules/observability"
+
+  cluster_name = module.eks.cluster_name
+  tags         = var.tags
+}
