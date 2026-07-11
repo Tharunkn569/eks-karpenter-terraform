@@ -7,7 +7,7 @@ This folder contains GitHub Actions workflows used for CI/CD automation.
 ## Files
 
 - ci-ecr-build.yml
-- cd-argocd-sync.yml
+- terraform-infra.yaml
 
 ## 01_CI_github_actions_AWS_ECR
 
@@ -29,17 +29,19 @@ The Payments Microservice and Orders Microservice are configured as ArgoCD appli
 
 The intended end-to-end flow is:
 
-Developer code change
+App code change in app/
 ↓
-GitHub Actions workflow
+GitHub Actions builds Docker image
 ↓
-Docker image build
+Image pushed to ECR
 ↓
-Amazon ECR image push
+Workflow updates Helm values-dev.yaml image tag
 ↓
-ArgoCD application sync
+Git commit pushed
 ↓
-Amazon EKS workload deployment
+ArgoCD detects Git change
+↓
+ArgoCD auto sync deploys to EKS
 
 ## Required GitHub Secrets
 
