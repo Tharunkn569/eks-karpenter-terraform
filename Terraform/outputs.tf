@@ -88,3 +88,23 @@ output "ebs_csi_driver_role_arn" {
   description = "IAM role ARN used by EBS CSI Driver"
   value       = module.platform_addons.ebs_csi_driver_role_arn
 }
+
+output "amp_workspace_id" {
+  description = "Amazon Managed Prometheus workspace ID"
+  value       = module.observability.amp_workspace_id
+}
+
+output "amp_workspace_arn" {
+  description = "Amazon Managed Prometheus workspace ARN"
+  value       = module.observability.amp_workspace_arn
+}
+
+output "amp_remote_write_endpoint" {
+  description = "Amazon Managed Prometheus remote write endpoint"
+  value       = module.observability.amp_remote_write_endpoint
+}
+
+output "adot_collector_role_arn" {
+  description = "IAM role ARN used by ADOT collector"
+  value       = module.observability.adot_collector_role_arn
+}
