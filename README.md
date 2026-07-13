@@ -2,9 +2,9 @@
 
 ## Overview
 
-This repository demonstrates a production-style Amazon EKS platform built using Terraform, Karpenter, Kubernetes, Helm, GitHub Actions, Amazon ECR, and ArgoCD.
+This repository demonstrates a production-style Amazon EKS platform built using Terraform, Karpenter, Kubernetes, Helm, GitHub Actions, Amazon ECR, ArgoCD, and AWS Observability services.
 
-The project includes infrastructure provisioning, dynamic node autoscaling, workload deployment, ingress traffic routing, secret management, persistent storage, and CI/CD delivery patterns.
+The project includes infrastructure provisioning, dynamic node autoscaling, workload deployment, ingress traffic routing, secret management, persistent storage, CI/CD delivery, and observability patterns.
 
 ## Repository Structure
 
@@ -15,17 +15,20 @@ terraform/
   - karpenter/
   - platform-addons/
   - workload-iam/
+  - github-oidc/
+  - observability/
 
 kubernetes/
+- argocd/
 - aws-load-balancer-controller/
 - aws-secrets-provider/
 - ebs-csi-driver/
 - karpenter/
 - node-termination-handler/
+- observability/
 - orders-microservice/
 - payments-microservice/
 - secrets-store-csi-driver/
-- argocd/
 
 app/
 - payments-microservice/
@@ -33,7 +36,7 @@ app/
 
 .github/workflows/
 - ci-ecr-build.yml
-- cd-argocd-sync.yml
+- terraform-infra.yml
 
 ## Terraform Components
 
@@ -42,9 +45,13 @@ app/
 - Karpenter IAM and interruption queue
 - Platform add-ons
 - Workload IAM using EKS Pod Identity
+- GitHub Actions OIDC role
 - EBS CSI Driver integration
 - AWS Load Balancer Controller IAM integration
 - Secrets Manager workload access
+- Amazon Managed Prometheus workspace
+- Amazon Managed Grafana workspace
+- ADOT Collector IAM using EKS Pod Identity
 
 ## Kubernetes Components
 
@@ -55,6 +62,9 @@ app/
 - EBS CSI Driver
 - Node Termination Handler
 - ArgoCD
+- ADOT Collector
+- Prometheus Node Exporter
+- Kube State Metrics
 - Payments Microservice
 - Orders Microservice
 
@@ -100,6 +110,23 @@ Used to demonstrate:
 - EBS-backed persistent storage
 - EBS CSI Driver based volume provisioning
 
+## Observability
+
+The observability layer demonstrates metrics collection and visualization using AWS-native monitoring services.
+
+Components included:
+
+- AWS Distro for OpenTelemetry
+- ADOT Collector
+- Amazon Managed Service for Prometheus
+- Amazon Managed Grafana
+- Prometheus Node Exporter
+- Kube State Metrics
+
+The ADOT Collector is configured to collect Kubernetes metrics and send them to Amazon Managed Prometheus using remote write.
+
+Amazon Managed Grafana can be used to visualize metrics from Amazon Managed Prometheus.
+
 ## CI/CD Flow
 
 This repository includes a CI/CD pattern using GitHub Actions, Amazon ECR, ArgoCD, Helm, and Amazon EKS.
@@ -108,27 +135,27 @@ Flow:
 
 Developer Code Change
 
-↓  
+↓
 
 GitHub Actions CI Workflow
 
-↓  
+↓
 
 Docker Image Build
 
-↓  
+↓
 
 Amazon ECR Image Push
 
-↓  
+↓
+
+Helm Values Update
+
+↓
 
 ArgoCD GitOps Sync
 
-↓  
-
-Helm Deployment
-
-↓  
+↓
 
 Amazon EKS Workload Deployment
 
@@ -139,6 +166,21 @@ The GitHub Actions workflow builds Docker images for the sample microservices an
 Workflow:
 
 - .github/workflows/ci-ecr-build.yml
+
+## Infrastructure Pipeline
+
+Infrastructure changes are handled through a separate Terraform pipeline.
+
+Workflow:
+
+- .github/workflows/terraform-infra.yml
+
+The infrastructure pipeline is responsible for:
+
+- Terraform format check
+- Terraform validation
+- Terraform plan
+- Terraform apply with approval
 
 ## ArgoCD
 
@@ -164,10 +206,11 @@ Applications managed:
 - ALB-based ingress pattern
 - AWS Secrets Manager integration
 - EBS-backed persistent storage
+- AWS-native observability with ADOT, AMP, and AMG
 - GitHub Actions CI with Amazon ECR
 - ArgoCD GitOps-based CD
 - Kubernetes workload governance
 
 ## Disclaimer
 
-This repository is a personal learning and demonstration project created to showcase Terraform, Amazon EKS, Kubernetes, Karpenter, Helm, GitHub Actions, Amazon ECR, ArgoCD, and AWS platform integration patterns.
+This repository is a personal learning and demonstration project created to showcase Terraform, Amazon EKS, Kubernetes, Karpenter, Helm, GitHub Actions, Amazon ECR, ArgoCD, AWS Observability, and AWS platform integration patterns.

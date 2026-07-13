@@ -108,3 +108,18 @@ output "adot_collector_role_arn" {
   description = "IAM role ARN used by ADOT collector"
   value       = module.observability.adot_collector_role_arn
 }
+
+output "grafana_workspace_id" {
+  description = "Amazon Managed Grafana workspace ID"
+  value       = module.observability.grafana_workspace_id
+}
+
+output "grafana_workspace_endpoint" {
+  description = "Amazon Managed Grafana workspace endpoint"
+  value       = module.observability.grafana_workspace_endpoint
+}
+
+output "grafana_workspace_role_arn" {
+  description = "IAM role ARN used by Amazon Managed Grafana"
+  value       = module.observability.grafana_workspace_role_arn
+}

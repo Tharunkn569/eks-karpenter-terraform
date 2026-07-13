@@ -2,31 +2,35 @@
 
 ## Overview
 
-This folder contains the Infrastructure as Code (IaC) components used to provision the Amazon EKS platform.
+This folder contains the Terraform Infrastructure as Code configuration for provisioning the Amazon EKS platform and supporting AWS services.
 
-The infrastructure is organized into reusable modules to simplify management, scalability, and future enhancements.
+The Terraform code is organized using reusable modules for networking, EKS, Karpenter, platform add-ons, workload IAM, GitHub OIDC, and observability.
 
 ## Structure
 
-terraform/
-├── main.tf
-├── variables.tf
-├── outputs.tf
-├── versions.tf
-├── terraform.tfvars.example
-│
-└── modules/
-    ├── vpc/
-    ├── eks/
-    ├── karpenter/
-    ├── platform-addons/
-    └── workload-iam/
+Terraform/
+- main.tf
+- variables.tf
+- outputs.tf
+- versions.tf
+- terraform.tfvars.example
+
+Terraform/modules/
+- vpc/
+- eks/
+- karpenter/
+- platform-addons/
+- workload-iam/
+- github-oidc/
+- observability/
 
 ## Modules
 
 ### VPC
 
-Provisions the networking layer for the platform, including:
+Provisions the networking layer for the EKS platform.
+
+Includes:
 
 - VPC
 - Public subnets
@@ -35,29 +39,37 @@ Provisions the networking layer for the platform, including:
 
 ### EKS
 
-Provisions the Amazon EKS cluster and supporting resources, including:
+Provisions the Amazon EKS cluster and supporting cluster resources.
+
+Includes:
 
 - EKS Cluster
-- IAM Roles
-- EKS Add-ons
-- Cluster Networking
+- Cluster IAM roles
+- EKS Pod Identity Agent
+- EKS add-ons
 
 ### Karpenter
 
-Provisions resources required for Karpenter integration, including:
+Provisions AWS resources required for Karpenter integration.
 
-- IAM Roles
-- Pod Identity Association
-- EventBridge Rules
-- SQS Interruption Queue
+Includes:
+
+- Karpenter controller IAM role
+- Karpenter node IAM role
+- EKS Pod Identity association
+- SQS interruption queue
+- EventBridge interruption rules
 
 ### Platform Add-ons
 
-Provisions IAM and add-on integrations for platform components, including:
+Provisions AWS and IAM resources for platform-level EKS add-ons.
 
-- EBS CSI Driver
+Includes:
+
+- AWS Load Balancer Controller IAM integration
+- EBS CSI Driver integration
 - AWS Secrets Store CSI Provider
-- AWS Load Balancer Controller Pod Identity
+- ECR repositories for microservices
 
 ### Workload IAM
 
@@ -67,21 +79,44 @@ Currently used for:
 
 - Payments Microservice access to AWS Secrets Manager
 
-## Features
+### GitHub OIDC
 
-- Modular Terraform design
-- Environment-driven configuration
-- Reusable infrastructure components
-- Karpenter integration
-- EKS Pod Identity support
+Provisions IAM resources used by GitHub Actions to authenticate with AWS using OIDC.
+
+Used for:
+
+- Secure ECR image push from GitHub Actions
+- Avoiding long-term AWS access keys in GitHub
+
+### Observability
+
+Provisions AWS observability resources for the EKS platform.
+
+Includes:
+
+- ADOT Collector IAM role
+- ADOT Collector EKS Pod Identity association
+- ADOT EKS add-on
+- Prometheus Node Exporter EKS add-on
+- Kube State Metrics EKS add-on
+- Amazon Managed Prometheus workspace
+- Amazon Managed Grafana workspace
+
+## Key Capabilities
+
+- Modular Terraform architecture
+- Amazon EKS cluster provisioning
+- EKS Pod Identity integration
+- Karpenter autoscaling support
 - Spot interruption handling
 - Platform add-on integration
-- Workload IAM using EKS Pod Identity
+- Workload IAM integration
+- GitHub Actions OIDC integration
+- Amazon ECR repositories
 - AWS Secrets Manager access for workloads
-- EBS CSI Driver integration
-- AWS Load Balancer Controller IAM integration
-
+- EBS CSI Driver support
+- AWS-native observability with ADOT, AMP, and AMG
 
 ## Purpose
 
-This infrastructure demonstrates a production-style Amazon EKS platform using Terraform and Karpenter while following modular Infrastructure as Code practices.
+This Terraform configuration demonstrates a production-style Amazon EKS platform using modular Infrastructure as Code practices.

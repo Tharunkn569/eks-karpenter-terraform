@@ -3,9 +3,8 @@ kind: AppProject
 metadata:
   name: microservices
   namespace: argocd
-
 spec:
-  description: GitOps project for EKS microservices
+  description: GitOps project for EKS microservices and observability components
 
   sourceRepos:
     - "https://github.com/Tharunkn569/eks-karpenter-terraform.git"
@@ -15,6 +14,9 @@ spec:
       server: https://kubernetes.default.svc
 
     - namespace: orders
+      server: https://kubernetes.default.svc
+
+    - namespace: observability
       server: https://kubernetes.default.svc
 
   clusterResourceWhitelist:

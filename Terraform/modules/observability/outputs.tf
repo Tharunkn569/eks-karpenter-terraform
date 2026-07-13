@@ -17,3 +17,19 @@ output "adot_collector_role_arn" {
   description = "IAM role ARN used by ADOT collector"
   value       = aws_iam_role.adot_collector.arn
 }
+
+output "grafana_workspace_id" {
+  description = "Amazon Managed Grafana workspace ID"
+  value       = aws_grafana_workspace.this.id
+}
+
+output "grafana_workspace_endpoint" {
+  description = "Amazon Managed Grafana workspace endpoint"
+  value       = aws_grafana_workspace.this.endpoint
+}
+
+output "grafana_workspace_role_arn" {
+  description = "IAM role ARN used by Amazon Managed Grafana"
+  value       = aws_iam_role.grafana.arn
+}
+
