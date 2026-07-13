@@ -6,7 +6,6 @@ metadata:
   labels:
     app: payments-microservice
 spec:
-  serviceAccountName: payments-microservice
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
@@ -18,15 +17,6 @@ spec:
     spec:
       priorityClassName: payments-high-priority
       serviceAccountName: payments-microservice
-      
-    volumes:
-       - name: payments-secrets-store
-          csi:
-           driver: secrets-store.csi.k8s.io
-           readOnly: true
-           volumeAttributes:
-             secretProviderClass: payments-secret-provider
-
 
       containers:
         - name: payments-microservice
@@ -48,8 +38,8 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: payments-app-secret
-                 key: DB_PASSWORD
-          
+                  key: DB_PASSWORD
+
           volumeMounts:
             - name: payments-secrets-store
               mountPath: "/mnt/secrets-store"
@@ -79,3 +69,11 @@ spec:
               port: {{ .Values.containerPort }}
             initialDelaySeconds: 30
             periodSeconds: 20
+
+      volumes:
+        - name: payments-secrets-store
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: payments-secret-provider
